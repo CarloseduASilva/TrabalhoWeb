@@ -1,3 +1,5 @@
+// Carlos Eduardo Abreu da Silva
+
 const questions = [
     {
         question: "Qual é o verdadeiro nome do Homem de Ferro?",
@@ -69,6 +71,20 @@ const rankingList = document.getElementById('ranking-list');
 
 let shuffledQuestions, currentQuestionIndex;
 let score = 0;
+
+const startQuizButton = document.getElementById('start-quiz');
+const viewRankingButton = document.getElementById('view-ranking');
+
+// Adicionar listeners de evento
+startQuizButton.addEventListener('click', startQuiz);
+viewRankingButton.addEventListener('click', showRanking);
+
+function showRanking() {
+    // Esconder outras seções
+    document.getElementById('quiz').classList.add('hide');
+    scoreContainer.classList.add('hide');
+    rankingContainer.classList.remove('hide'); // Mostrar ranking
+}
 
 // Função para embaralhar array
 function shuffleArray(array) {

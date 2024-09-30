@@ -1,12 +1,25 @@
+<!-- Carlos Eduardo Abreu da Silva -->
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz de Filmes da Marvel</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+    <nav id="navbar">
+        <ul>
+            <li><a href="#" id="start-quiz">Iniciar Quiz</a></li>
+            <li><a href="#" id="view-ranking">Ver Ranking</a></li>
+            <li><a href="https://marvel.fandom.com/pt-br/wiki/P%C3%A1gina_principal" target="_blank">Marvel Fandom</a></li> 
+            <li><a href="./sobre.html" target="_blank">Sobre</a></li>
+        </ul>
+    </nav>
+
     <div id="quiz-container">
         <div id="quiz" class="hide">
             <h2 id="question">Pergunta</h2>
@@ -29,9 +42,9 @@
             <button id="restart-btn" class="btn">Recomeçar Quiz</button>
             <button id="clear-ranking-btn" class="btn">Limpar Ranking</button>
         </div>
-    </div>
-    
+    </div> <!-- Fechar a div do quiz-container -->
 
     <script src="script.js"></script>
 </body>
+
 </html>

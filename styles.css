@@ -1,3 +1,10 @@
+/* Carlos Eduardo Abreu da Silva*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(to right, #74ebd5, #acb6e5);
@@ -5,8 +12,81 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column; /* Permite que o conteúdo se empilhe verticalmente */
     height: 100vh;
     margin: 0;
+}
+
+/* Estilos para a página 'Sobre' */
+#content {
+    padding: 30px; /* Aumenta o espaçamento */
+    max-width: 800px; /* Limita a largura máxima */
+    margin: 20px auto; /* Centraliza o conteúdo */
+    background-color: white; /* Fundo branco */
+    border-radius: 8px; /* Cantos arredondados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+#content h1 {
+    margin-bottom: 20px; /* Espaço abaixo do título */
+    font-size: 28px; /* Tamanho maior para o título */
+    color: #007bff; /* Cor azul para o título */
+    text-align: center; /* Centraliza o título */
+}
+
+#content p {
+    line-height: 1.6; /* Melhora a legibilidade */
+    margin-bottom: 15px; /* Espaço entre parágrafos */
+    font-size: 18px; /* Tamanho da fonte para o texto */
+    color: #333; /* Cor do texto */
+}
+
+#content a {
+    display: inline-block; /* Para permitir padding */
+    margin-top: 20px; /* Espaço acima do botão */
+    padding: 10px 20px; /* Espaçamento do botão */
+    background-color: #007bff; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    text-decoration: none; /* Remove sublinhado */
+    border-radius: 5px; /* Cantos arredondados */
+    text-align: center; /* Centraliza o texto */
+    transition: background-color 0.3s; /* Transição suave para cor de fundo */
+}
+
+#content a:hover {
+    background-color: #0056b3; /* Cor do botão ao passar o mouse */
+}
+
+#navbar {
+    background-color: #007bff; /* Cor de fundo */
+    padding: 10px; /* Espaçamento */
+    border-radius: 8px 8px 0 0; /* Cantos arredondados superiores */
+    width: 100%; /* Largura total */
+    text-align: center; /* Centraliza o conteúdo */
+    position: fixed; /* Fica fixo no topo da página */
+    top: 0; /* Fixa no topo */
+    z-index: 10; /* Garante que a barra esteja acima de outros elementos */
+}
+
+#navbar ul {
+    list-style-type: none; /* Remove marcadores */
+    padding: 0; /* Remove espaçamento */
+    margin: 0; /* Remove margem */
+}
+
+#navbar li {
+    display: inline; /* Exibe os itens na mesma linha */
+    margin: 0 15px; /* Espaçamento entre os itens */
+}
+
+#navbar a {
+    color: white; /* Cor do texto */
+    text-decoration: none; /* Remove sublinhado */
+    font-weight: bold; /* Texto em negrito */
+}
+
+#navbar a:hover {
+    text-decoration: underline; /* Sublinha ao passar o mouse */
 }
 
 #quiz-container {
@@ -17,6 +97,7 @@ body {
     width: 400px;
     text-align: center;
     transition: transform 0.3s;
+    margin-top: 60px; /* Para evitar que o quiz fique atrás da barra de navegação */
 }
 
 #quiz-container:hover {
@@ -91,4 +172,20 @@ h2 {
 
 #ranking-list li:last-child {
     border-bottom: none;
+}
+
+@media (max-width: 600px) {
+    #quiz-container {
+        width: 90%; 
+        padding: 20px; 
+    }
+    
+    h2 {
+        font-size: 20px; 
+    }
+
+    .btn {
+        padding: 10px; 
+        font-size: 14px; 
+    }
 }

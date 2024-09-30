@@ -1,60 +1,102 @@
-const questionsMarvel = [
+const questions = [
     {
-        question: 'Quem é o vilão em Vingadores: Guerra Infinita?',
+        question: "Qual é o verdadeiro nome do Homem de Ferro?",
         answers: [
-            { text: 'Thanos', correct: true },
-            { text: 'Ultron', correct: false },
-            { text: 'Loki', correct: false },
-            { text: 'Ego', correct: false }
+            { text: "Tony Stark", correct: true },
+            { text: "Steve Rogers", correct: false },
+            { text: "Bruce Banner", correct: false },
+            { text: "Thor Odinson", correct: false }
         ]
     },
     {
-        question: 'Quem é o líder dos Guardiões da Galáxia?',
+        question: "Quem é o vilão do primeiro filme dos Vingadores?",
         answers: [
-            { text: 'Peter Quill', correct: true },
-            { text: 'Gamora', correct: false },
-            { text: 'Drax', correct: false },
-            { text: 'Rocket', correct: false }
+            { text: "Thanos", correct: false },
+            { text: "Ultron", correct: false },
+            { text: "Loki", correct: true },
+            { text: "Hela", correct: false }
         ]
     },
-    // Adicione mais perguntas aqui
+    {
+        question: "Qual é o nome da irmã de Pantera Negra?",
+        answers: [
+            { text: "Nakia", correct: false },
+            { text: "Okoye", correct: false },
+            { text: "Shuri", correct: true },
+            { text: "Ramonda", correct: false }
+        ]
+    },
+    {
+        question: "Quem quebra o escudo do Capitão América?",
+        answers: [
+            { text: "Ultron", correct: false },
+            { text: "Thanos", correct: true },
+            { text: "Loki", correct: false },
+            { text: "Hela", correct: false }
+        ]
+    },
+    {
+        question: "Qual o nome do martelo de Thor?",
+        answers: [
+            { text: "Mjolnir", correct: true },
+            { text: "Stormbreaker", correct: false },
+            { text: "Gungnir", correct: false },
+            { text: "Hofund", correct: false }
+        ]
+    },
+    {
+        question: "Onde o Capitão América foi congelado?",
+        answers: [
+            { text: "Ártico", correct: true },
+            { text: "Antártida", correct: false },
+            { text: "Alasca", correct: false },
+            { text: "Groenlândia", correct: false }
+        ]
+    }
 ];
 
-// Variáveis globais
-let currentQuestionIndex = 0;
-let score = 0;
-let shuffledQuestions = [];
-
-// Elementos da página
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
 const nextButton = document.getElementById('next-btn');
 const scoreContainer = document.getElementById('score-container');
 const scoreElement = document.getElementById('score');
+const restartButton = document.getElementById('restart-btn');
 const nameInputContainer = document.getElementById('name-input-container');
 const submitNameButton = document.getElementById('submit-name-btn');
 const nameInput = document.getElementById('name');
 const rankingContainer = document.getElementById('ranking-container');
 const rankingList = document.getElementById('ranking-list');
 
-// Função para iniciar o quiz
+let shuffledQuestions, currentQuestionIndex;
+let score = 0;
+
+// Função para embaralhar array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 function startQuiz() {
     score = 0;
-    currentQuestionIndex = 0;
-    shuffledQuestions = questionsMarvel.sort(() => Math.random() - 0.5); // Embaralhar perguntas
-    document.getElementById('quiz').classList.remove('hide');
     scoreContainer.classList.add('hide');
     rankingContainer.classList.add('hide');
-    nameInputContainer.classList.add('hide');
+    document.getElementById('quiz').classList.remove('hide');
+
+    shuffledQuestions = shuffleArray([...questions]);
+    currentQuestionIndex = 0;
+
     showQuestion();
 }
 
-// Função para exibir a pergunta
 function showQuestion() {
     resetState();
-    const question = shuffledQuestions[currentQuestionIndex];
-    questionElement.innerText = question.question;
-    question.answers.forEach(answer => {
+    const currentQuestion = shuffledQuestions[currentQuestionIndex];
+    questionElement.innerText = currentQuestion.question;
+
+    currentQuestion.answers.forEach(answer => {
         const button = document.createElement('button');
         button.innerText = answer.text;
         button.classList.add('btn');
@@ -66,7 +108,6 @@ function showQuestion() {
     });
 }
 
-// Função para limpar o estado da pergunta anterior
 function resetState() {
     nextButton.classList.add('hide');
     while (answerButtonsElement.firstChild) {
@@ -74,24 +115,26 @@ function resetState() {
     }
 }
 
-// Função para selecionar a resposta
 function selectAnswer(e) {
     const selectedButton = e.target;
-    const correct = selectedButton.dataset.correct === 'true';
+    const correct = selectedButton.dataset.correct === "true";
+    setStatusClass(selectedButton, correct);
+    Array.from(answerButtonsElement.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct === "true");
+    });
+
     if (correct) {
         score++;
     }
-    Array.from(answerButtonsElement.children).forEach(button => {
-        button.disabled = true; // Desabilitar botões após seleção
-        setStatusClass(button, button.dataset.correct === 'true');
-    });
 
-    nextButton.classList.remove('hide');
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+        nextButton.classList.remove('hide');
+    } else {
+        showScore();
+    }
 }
 
-// Função para definir a classe correta/incorreta
 function setStatusClass(element, correct) {
-    clearStatusClass(element);
     if (correct) {
         element.classList.add('correct');
     } else {
@@ -99,61 +142,73 @@ function setStatusClass(element, correct) {
     }
 }
 
-// Função para remover as classes de status
-function clearStatusClass(element) {
-    element.classList.remove('correct');
-    element.classList.remove('wrong');
-}
-
-// Função para exibir a pontuação final
 function showScore() {
-    document.getElementById('quiz').classList.add('hide'); // Esconde o quiz
-    scoreContainer.classList.remove('hide'); // Mostra a tela de pontuação
-    scoreElement.innerText = `Você acertou ${score} de ${shuffledQuestions.length} perguntas.`;
-    nameInputContainer.classList.remove('hide'); // Mostrar campo de nome
+    document.getElementById('quiz').classList.add('hide');
+    scoreContainer.classList.remove('hide');
+    scoreElement.innerText = `${score} de ${shuffledQuestions.length}`;
 }
 
-// Função para salvar o nome e pontuação no ranking
-submitNameButton.addEventListener('click', () => {
-    const name = nameInput.value.trim();
-    if (name) {
-        saveToRanking(name, score);
-        nameInput.value = '';
-        showRanking();
+function submitScore() {
+    const name = nameInput.value;
+    if (name === "") {
+        alert("Por favor, insira um nome!");
+        return;
     }
-});
 
-// Função para salvar no ranking (usando localStorage)
-function saveToRanking(name, score) {
-    let ranking = JSON.parse(localStorage.getItem('rankingMarvel')) || [];
+    // Carregar ranking do localStorage ou iniciar um novo array
+    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+
+    // Adicionar o novo recorde
     ranking.push({ name, score });
-    localStorage.setItem('rankingMarvel', JSON.stringify(ranking));
+    
+    // Ordenar o ranking por pontuação (decrescente)
+    ranking.sort((a, b) => b.score - a.score);
+
+    // Salvar o ranking atualizado no localStorage
+    localStorage.setItem('ranking', JSON.stringify(ranking));
+
+    // Exibir o ranking
+    showRanking();
 }
 
-// Função para exibir o ranking
 function showRanking() {
-    rankingContainer.classList.remove('hide');
-    rankingList.innerHTML = '';
-    let ranking = JSON.parse(localStorage.getItem('rankingMarvel')) || [];
-    ranking.sort((a, b) => b.score - a.score); // Ordenar por maior pontuação
-    ranking.forEach(entry => {
-        const li = document.createElement('li');
-        li.innerText = `${entry.name} - ${entry.score} pontos`;
-        rankingList.appendChild(li);
-    });
     scoreContainer.classList.add('hide');
+    rankingContainer.classList.remove('hide');
+    
+    // Limpar lista anterior
+    rankingList.innerHTML = "";
+
+    // Carregar o ranking do localStorage
+    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+
+    // Exibir ranking na tela
+    ranking.forEach((entry, index) => {
+        const listItem = document.createElement('li');
+        listItem.innerText = `${index + 1}. ${entry.name}: ${entry.score} pontos`;
+        rankingList.appendChild(listItem);
+    });
 }
 
-// Evento de clique no botão "Próxima Pergunta"
+const clearRankingButton = document.getElementById('clear-ranking-btn');
+
+// Função para limpar o ranking
+function clearRanking() {
+    localStorage.removeItem('ranking'); // Remove o ranking do localStorage
+    rankingList.innerHTML = ""; // Limpa a lista exibida
+    alert("Ranking limpo com sucesso!"); // Mensagem de confirmação
+}
+
+// Adicionando o listener de evento ao botão
+clearRankingButton.addEventListener('click', clearRanking);
+
+
 nextButton.addEventListener('click', () => {
     currentQuestionIndex++;
-    if (currentQuestionIndex < shuffledQuestions.length) {
-        showQuestion();
-    } else {
-        showScore(); // Mostrar pontuação final apenas no final do quiz
-    }
+    showQuestion();
 });
 
+submitNameButton.addEventListener('click', submitScore);
 
-// Iniciar o quiz
+restartButton.addEventListener('click', startQuiz);
+
 startQuiz();

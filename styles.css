@@ -1,158 +1,94 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-nav#main-menu {
-    background-color: #2c2f38;
-    padding: 10px 20px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    z-index: 1000;
-}
-
-nav#main-menu ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-nav#main-menu ul li {
-    display: inline;
-}
-
-nav#main-menu ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease;
-}
-
-nav#main-menu ul li a:hover {
-    color: #00b7ff;
-}
-
 body {
-    padding-top: 60px; /* Para evitar que o conteúdo fique por baixo do menu */
-    font-family: Arial, sans-serif;
-    background-color: #1d1f27;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: white;
+    margin: 0;
 }
 
 #quiz-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #2c2f38;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 30px;
     width: 400px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+#quiz-container:hover {
+    transform: scale(1.02);
 }
 
 h2 {
-    color: #00b7ff;
-    text-align: center;
     margin-bottom: 20px;
+    font-size: 24px;
+    color: #4a4a4a;
 }
 
 .btn {
-    background-color: #00b7ff;
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
-    margin: 10px 0;
-    width: 100%;
+    border-radius: 8px;
+    padding: 12px 20px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    margin: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
-    background-color: #009edb;
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(1px);
 }
 
 .btn-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-}
-
-.correct {
-    background-color: #4caf50;
-}
-
-.wrong {
-    background-color: #f44336;
-}
-
-#score-container, #ranking-container {
-    display: none;
-    text-align: center;
-}
-
-input[type="text"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-#ranking-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 20px 0;
-    text-align: left;
-}
-
-#ranking-list li {
-    background-color: #444957;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
 }
 
 .hide {
     display: none;
 }
 
-/* Estilização adicional para melhorar a aparência */
-#name-input-container {
+.correct {
+    background-color: #28a745; /* Verde para resposta correta */
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.wrong {
+    background-color: #dc3545; /* Vermelho para resposta errada */
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#ranking-list {
+    list-style-type: none;
+    padding: 0;
     margin-top: 20px;
+    text-align: left;
 }
 
-label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    display: block;
+#ranking-list li {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-#next-btn, #submit-name-btn, #restart-btn {
-    margin-top: 20px;
-}
-
-/* Layout responsivo */
-@media (max-width: 500px) {
-    #quiz-container {
-        width: 90%;
-    }
-
-    .btn {
-        padding: 10px;
-    }
-}
-
-/* Estilo de foco para acessibilidade */
-.btn:focus {
-    outline: 2px solid #00b7ff;
+#ranking-list li:last-child {
+    border-bottom: none;
 }

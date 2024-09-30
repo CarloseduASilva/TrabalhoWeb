@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Filmes da Marvel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav id="main-menu">
+        <ul>
+            <li><a href="index.html">Quiz Marvel</a></li>
+            <li><a href="quiz-dc.html">Quiz DC</a></li>
+            <li><a href="#ranking-container" id="show-ranking">Ver Ranking</a></li>
+        </ul>
+    </nav>
+
+    <div id="quiz-container">
+        <div id="quiz" class="hide">
+            <h2 id="question">Pergunta</h2>
+            <div id="answer-buttons" class="btn-grid"></div>
+            <button id="next-btn" class="btn hide">Próxima Pergunta</button>
+        </div>
+
+        <div id="score-container" class="hide">
+            <h2>Seu resultado: <span id="score"></span></h2>
+            <div id="name-input-container">
+                <label for="name">Digite seu nome:</label>
+                <input type="text" id="name" placeholder="Seu nome">
+                <button id="submit-name-btn" class="btn">Enviar</button>
+            </div>
+        </div>
+
+        <div id="ranking-container" class="hide">
+            <h2>Ranking:</h2>
+            <ul id="ranking-list"></ul>
+            <button id="restart-btn" class="btn">Recomeçar Quiz</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
